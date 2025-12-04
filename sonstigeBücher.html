@@ -5,21 +5,58 @@
   <title>Buchtipps für Näh- & Kostümbegeisterte</title>
   <meta name="description" content="Einsendeaufgaben fürs Modul ICS"/>
   <meta name="author" content="Alina Saße"/>
-  <meta name="date" content="2024-11-03"/>
+  <meta name="date" content="2025-12-04"/>
   <link rel="stylesheet" href="Inhaltsseiten_style.css"/>
+
+  <script type="text/javascript"> //Beginn Bildershow
+  var bildershow = new Array(
+    "IMG_20231028_185227.jpg", //Grundbild aus ESA1
+    "32.jpg",
+    "33.jpg"
+  );
+  var nextPicture = 0;
+  var zeit= 2000; //Zeit je Bild: 2 Sekunden
+
+  function animation (){
+    document.getElementById (`bshow`).src =
+    bildershow[nextPicture];
+    nextPicture++;
+    if(nextPicture == bildershow.length) {
+      nextPicture = 0;
+    }
+    setTimeout(animation, zeit);
+  }
+  </script>
+
+  <script type="text/javascript"> //Kommentarbereich
+    function toggleKommentar () {
+      var textarea = document.getElementById("infoTextarea");
+      if (textarea.style.display === "none" || textarea.style.display === "") {
+        textarea.style.display = "block";  // sichtbar 
+      } else {
+        textarea.style.display = "none";  // unsichtbar 
+      }
+    }
+
+    function updateZeichenZaehler() {
+    var textarea = document.getElementById("info");
+    var remaining = 500 - textarea.value.length; // berechnet verbleibende Zeichen
+    document.getElementById("zeichenzaehler").textContent = "Verbleibende Zeichen: " + remaining;
+      }
+  </script>
 </head>
-<body>
+
+<body onload="animation();">>
   <header>
       <h1>sonstige Bücher</h1>
   </header>
-     <section>
+    <section>
     <tr>
       <td style="vertical-align: top;">
-  <p>
-    <figure>
+      <p>
+      <figure>
       <figcaption>The Costume Technician´s Handbook</figcaption>
-      <img id="SN" src="IMG_20231028_185227.jpg" height="400" alt="The Costume Technician´s Handbook"
-    title= "The Costume Technician´s Handbook">
+      <img src="IMG_20231028_185227.jpg" height="400" alt="" id="bshow" />
   </figure>
   <br>
     Geschrieben von Elizabeth Covey & Rosemary Ingham
@@ -27,7 +64,6 @@
 <br>
 <span style="color: DarkGoldenRod;">10/10</span> </p>
 <ul>
-
     <h2>Top 3 Lieblingsliste:</h2>
     <li> The Costume Technician´s Handbook by Rosemary Ingham & Liz Covey</li>
     <li> Game of Thrones The Costumes by Michele Clapton</li>
@@ -38,22 +74,25 @@
     <ul>
       <li>vorallem in der Großausgabe kommen die Details der Mode gut zur Geltung</li>
     </ul>
-   </ul>       
-    <form action="datenverarbeitung.php" method="get">
-      <p><label for="info">Schreib mir deine Meinung:</label><br>
-        <textarea name="textfeld" cols="10" rows="3" maxlength="500" id="info">
-      Deine Nachricht...
-   </textarea>
-  </p>
-  <div id="zeichenzaehler">Verbleibende Zeichen: 500</div>
-     </form>
-     <button type="submit" name="seite1" id="seite1">
- <span>Abschicken</span>
-</button>
+   </ul> 
+
+     <a href="javascript:void(0);" onclick="toggleKommentar()">Kommentar hinterlassen</a>      
+    <div id="infoTextarea" style="display: none;">
+          <form action="datenverarbeitung.php" method="get">
+            <p><label for="info">Schreib mir deine Meinung:</label><br>
+            <textarea name="textfeld" id="info" cols="30" rows="5" maxlength="500" placeholder="Deine Nachricht..." oninput="updateZeichenZaehler()"></textarea>
+            </p>
+            <div id="zeichenzaehler">Verbleibende Zeichen: 500</div>
+            <br>
+            <button type="submit" name="seite1" id="seite1">
+              <span>Abschicken</span>
+            </button>
+          </form>
+        </div>
 </td>
 </tr>
 </section>
-    <br>
+<br>
 <a href="index.html" class="back-button">Zurück zum Anfang</a>
 </body>
 </html>

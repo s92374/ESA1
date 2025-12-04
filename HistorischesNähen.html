@@ -5,10 +5,48 @@
   <title>Buchtipps für Näh- & Kostümbegeisterte</title>
   <meta name="description" content="Einsendeaufgaben fürs Modul ICS"/>
   <meta name="author" content="Alina Saße"/>
-  <meta name="date" content="2024-11-03"/>
+  <meta name="date" content="2025-12-04"/>
   <link rel="stylesheet" href="Inhaltsseiten_style.css"/>
+
+  <script type="text/javascript"> //Beginn Bildershow
+  var bildershow = new Array(
+    "IMG_20231028_185153.png", //Grundbild aus ESA1
+    "12.jpg",
+    "13.jpg"
+  );
+  var nextPicture = 0;
+  var zeit= 2000; //Zeit je Bild: 2 Sekunden
+
+  function animation (){
+    document.getElementById (`bshow`).src =
+    bildershow[nextPicture];
+    nextPicture++;
+    if(nextPicture == bildershow.length) {
+      nextPicture = 0;
+    }
+    setTimeout(animation, zeit);
+  }
+</script>
+
+  <script type="text/javascript"> //Kommentarbereich
+    function toggleKommentar () {
+      var textarea = document.getElementById("infoTextarea");
+      if (textarea.style.display === "none" || textarea.style.display === "") {
+        textarea.style.display = "block";  // sichtbar 
+      } else {
+        textarea.style.display = "none";  // unsichtbar 
+      }
+    }
+
+    function updateZeichenZaehler() {
+    var textarea = document.getElementById("info");
+    var remaining = 500 - textarea.value.length; // berechnet verbleibende Zeichen
+    document.getElementById("zeichenzaehler").textContent = "Verbleibende Zeichen: " + remaining;
+      }
+  </script>
 </head>
-<body>
+
+<body onload="animation();">
   <header>
       <h1>Historisches Nähen</h1>
   </header>
@@ -18,8 +56,7 @@
     <p>
       <figure>
         <figcaption>Costume Close-Up - Clothing Construction and Pattern 1750-1790</figcaption>
-        <img src="IMG_20231028_185153.png" id="HN" height="400" alt="Costume Close-Up 1750-1790"
-    title= "Foto Costume Close-Up - Clothing Construction and Pattern 1750-1790">
+        <img src="IMG_20231028_185153.png" height="400" alt="" id="bshow" />
   </figure>
    <br>
 Geschrieben von Linda Baumgarten, John Watson & Florine Carr
@@ -33,22 +70,23 @@ Geschrieben von Linda Baumgarten, John Watson & Florine Carr
     <li> 18th Century Dressmaking by Lauren Stowell & Abby Cox</li>
     <li> Authentic Victorian Dressmaking Techniques edited by Kristina Harris</li>
   </ol>
-<form action="datenverarbeitung.php" method="get" id="kommentarForm"> <!--"Form"-Einleitung des Formulars, "action" gibt an wohin die Daten übertragen werden sollen, da noch keine Info wohin es übertragen werden soll noch mit den Daten des Skripts-->
-  <p><label for="info">Schreib mir deine Meinung:</label><br>
-    <textarea name="textfeld" cols="10" rows="3" maxlength="500" id="info">
-      Deine Nachricht...
-   </textarea>
-  </p>
-  <div id="zeichenzaehler">Verbleibende Zeichen: 500</div>
- </form>
- <button type="submit" name="seite1" id="seite1">
- <span>Abschicken</span>
-</button>
-<a href="#" id="anzeigenLink">Kommentar anzeigen</a>
+     <a href="javascript:void(0);" onclick="toggleKommentar()">Kommentar hinterlassen</a>      
+    <div id="infoTextarea" style="display: none;">
+          <form action="datenverarbeitung.php" method="get">
+            <p><label for="info">Schreib mir deine Meinung:</label><br>
+            <textarea name="textfeld" id="info" cols="30" rows="5" maxlength="500" placeholder="Deine Nachricht..." oninput="updateZeichenZaehler()"></textarea>
+            </p>
+            <div id="zeichenzaehler">Verbleibende Zeichen: 500</div>
+            <br>
+            <button type="submit" name="seite1" id="seite1">
+              <span>Abschicken</span>
+            </button>
+          </form>
+        </div>
 </td>
 </tr>
 </section>
-    <br>
+<br>
 <a href="index.html" class="back-button">Zurück zum Anfang</a>
 </body>
 </html>

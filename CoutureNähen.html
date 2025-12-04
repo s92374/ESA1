@@ -5,10 +5,48 @@
   <title>Buchtipps für Näh- & Kostümbegeisterte</title>
   <meta name="description" content="Einsendeaufgaben fürs Modul ICS"/>
   <meta name="author" content="Alina Saße"/>
-  <meta name="date" content="2024-11-03"/>
+  <meta name="date" content="2025-12-04"/>
   <link rel="stylesheet" href="Inhaltsseiten_style.css"/>
+
+  <script type="text/javascript"> //Beginn Bildershow
+  var bildershow = new Array(
+    "IMG_20231028_185305.jpg", //Grundbild aus ESA1
+    "22.jpg",
+    "23.jpg"
+  );
+  var nextPicture = 0;
+  var zeit= 2000; //Zeit je Bild: 2 Sekunden
+
+  function animation (){
+    document.getElementById (`bshow`).src =
+    bildershow[nextPicture];
+    nextPicture++;
+    if(nextPicture == bildershow.length) {
+      nextPicture = 0;
+    }
+    setTimeout(animation, zeit);
+  }
+</script>
+
+<script type="text/javascript"> //Kommentarbereich
+    function toggleKommentar () {
+      var textarea = document.getElementById("infoTextarea");
+      if (textarea.style.display === "none" || textarea.style.display === "") {
+        textarea.style.display = "block";  // sichtbar 
+      } else {
+        textarea.style.display = "none";  // unsichtbar 
+      }
+    }
+
+    function updateZeichenZaehler() {
+    var textarea = document.getElementById("info");
+    var remaining = 500 - textarea.value.length; // berechnet verbleibende Zeichen
+    document.getElementById("zeichenzaehler").textContent = "Verbleibende Zeichen: " + remaining;
+      }
+  </script>
 </head>
-<body>
+
+<body onload="animation();">
   <header>
       <h1>Couture Nähen</h1>
   </header>
@@ -18,7 +56,7 @@
     <p>
         <figure>
           <figcaption>Couture Sewing Techniques</figcaption>
-          <img id="CN" src="IMG_20231028_185305.jpg" height="400" alt="Couture Sewing Techniques"
+          <img id="bshow" src="IMG_20231028_185305.jpg" height="400" alt="Couture Sewing Techniques"
       title= "Couture Sewing Techniques">
     </figure>
     <br>
@@ -33,16 +71,20 @@
     <li> Pattern Magic Phantasievolle Schnitte 2 by Tomoko Nakamichi</li>
     <li> Pattern Magic Stretchmaterialien by Tomoko Nakamichi</li>
       </ol>
-    <form action="datenverarbeitung.php" method="get">
-      <p><label for="info">Schreib mir deine Meinung:</label><br>
-        <textarea name="textfeld" cols="10" rows="3" maxlength="500" id="info">
-          Deine Nachricht...
-       </textarea>
-      </p>
-     </form>
-     <button type="submit" name="seite1" id="seite1">
- <span>Abschicken</span>
-</button>
+
+     <a href="javascript:void(0);" onclick="toggleKommentar()">Kommentar hinterlassen</a>      
+    <div id="infoTextarea" style="display: none;">
+          <form action="datenverarbeitung.php" method="get">
+            <p><label for="info">Schreib mir deine Meinung:</label><br>
+            <textarea name="textfeld" id="info" cols="30" rows="5" maxlength="500" placeholder="Deine Nachricht..." oninput="updateZeichenZaehler()"></textarea>
+            </p>
+            <div id="zeichenzaehler">Verbleibende Zeichen: 500</div>
+            <br>
+            <button type="submit" name="seite1" id="seite1">
+              <span>Abschicken</span>
+            </button>
+          </form>
+        </div>
 </td>
 </tr>
 </section>
